@@ -20,10 +20,10 @@
                 <td>${user.email}</td>
                 <td>
                     <c:if test="${user.enabled}">
-                        <a href="#" class="btn btn-danger btn-sm">Ban</a>
+                        <a href="/admin/user/toggle/${user.id}" class="btn btn-danger btn-sm">Ban</a>
                     </c:if>
                     <c:if test="${!user.enabled}">
-                        <a href="#" class="btn btn-dark btn-sm">Active</a>
+                        <a href="/admin/user/toggle/${user.id}" class="btn btn-dark btn-sm">Active</a>
                     </c:if>
                 </td>
             </tr>

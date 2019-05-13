@@ -2,8 +2,10 @@ package coder.controllers;
 
 import coder.models.Category;
 import coder.models.Post;
+import coder.models.User;
 import coder.services.CatService;
 import coder.services.PostService;
+import coder.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,8 @@ public class PageController {
     private PostService postService;
     @Autowired
     private CatService catService;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/")
     public String home(Model model) {
@@ -37,30 +41,29 @@ public class PageController {
 
 
     @RequestMapping("/admin/home")
-    public String admin() {
+    public String admin(Model model) {
+        List<Post> posts = postService.getAllPosts();
+        model.addAttribute("posts", posts);
         return "admin.home";
     }
 
-    @RequestMapping("/author/home")
-    public String author() {
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            String username = ((UserDetails) principal).getUsername();
-            System.out.println(username);
-        } else {
-            String username = principal.toString();
-            System.out.println(username);
-        }
-
+    @RequestMapping("/user/home")
+    public String userHome() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean bol = authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+        if (bol) {
+            return "redirect:/admin/home";
+        } else {
+            return "author.home";
+        }
+    }
 
-//        if (bol) {
-//            return "redirect:/admin/home";
-//        } else {
-//            return "author.home";
-//        }
+    @RequestMapping("/author/home")
+    public String author(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = ((UserDetails) principal).getUsername();
+        User user = userService.getUserByName(username);
+        model.addAttribute("posts", user.getPosts());
         return "author.home";
     }
 

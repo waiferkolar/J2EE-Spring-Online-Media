@@ -3,7 +3,7 @@
 
     <div class="col-md-6 offset-md-3">
 
-        <form:form method="post" modelAttribute="category" action="/cat/create">
+        <form:form method="post" modelAttribute="category" action="/admin/cat/create">
             <div class="form-group">
                 <label for="name">Category Name</label>
                 <form:input type="text" class="form-control" id="name" name="name" path="name"/>

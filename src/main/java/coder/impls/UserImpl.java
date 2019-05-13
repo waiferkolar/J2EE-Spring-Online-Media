@@ -38,6 +38,14 @@ public class UserImpl implements UserDao {
     }
 
     @Override
+    public User getUserByName(String name) {
+        Query query = session().createQuery("from User where username=:name");
+        query.setParameter("name", name);
+        User user = (User) query.uniqueResult();
+        return user;
+    }
+
+    @Override
     public void deleteUser(int id) {
         session().delete(getUserById(id));
         session().flush();

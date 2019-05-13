@@ -31,7 +31,8 @@
 
     <security:http auto-config="true">
         <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/author/**" access="hasAnyRole('ROLE_AUTHOR','ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/author/**"
+                                access="hasAnyRole('ROLE_AUTHOR','ROLE_ADMIN')"/>
 
         <security:form-login
                 login-page="/login"
@@ -46,6 +47,7 @@
                 logout-url="/logout"
                 invalidate-session="true"
         />
+        <security:csrf disabled="true"/>
     </security:http>
 
     <security:authentication-manager>
@@ -57,7 +59,6 @@
             />
         </security:authentication-provider>
     </security:authentication-manager>
-
     <mvc:resources mapping="/assets/**" location="/WEB-INF/assets/"/>
 
 

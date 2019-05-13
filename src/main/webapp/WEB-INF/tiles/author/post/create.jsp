@@ -4,8 +4,7 @@
 
     <h1 class="text-info text-center">Create New Post</h1>
 
-    <form:form method="post" modelAttribute="post" action="/post/create" enctype="multipart/form-data">
-
+    <form:form method="post" modelAttribute="post" action="/author/post/create" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">Title</label>
             <form:input type="text" class="form-control" id="title" path="title" name="title"/>

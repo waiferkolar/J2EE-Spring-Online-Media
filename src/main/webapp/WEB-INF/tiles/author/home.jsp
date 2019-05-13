@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container my-5">
-    <a href="/post/create" class="btn btn-primary btn-sm mb-3">Create <i class="fa fa-plus"></i></a>
+    <a href="/author/post/create" class="btn btn-primary btn-sm mb-3">Create <i class="fa fa-plus"></i></a>
 
     <table class="table table-bordered">
         <thead>

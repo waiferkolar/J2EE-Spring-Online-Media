@@ -14,11 +14,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
 
-                <c:forEach var="cat" items="${cats}">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdow2n" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Posts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdow2n">
+                        <c:forEach var="cat" items="${cats}">
+                            <a class="dropdown-item" href="/cat/${cat.id}">${cat.name}</a>
+                        </c:forEach>
+                    </div>
+                </li>
+
+                <c:if test="${pageContext.request.userPrincipal.authenticated}">
                     <li class="nav-item active">
-                        <a class="nav-link text-white" href="/cat/${cat.id}">${cat.name}</a>
+                        <a class="nav-link text-white" href="/user/home">Use Panel</a>
                     </li>
-                </c:forEach>
+                </c:if>
+                <li class="nav-item active">
+                    <a class="nav-link text-white" href="/contact">Contact</a>
+                </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -28,7 +43,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <c:if test="${!pageContext.request.userPrincipal.authenticated}">
                             <a class="dropdown-item" href="/login">login</a>
-                            <a class="dropdown-item" href="#">Register</a>
+                            <a class="dropdown-item" href="/register">Register</a>
                         </c:if>
                         <c:url var="logoutUrl" value="/logout"></c:url>
                         <c:if test="${pageContext.request.userPrincipal.authenticated}">
@@ -38,18 +53,6 @@
                             </form>
                         </c:if>
 
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="ndd" role="button"
-                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Member
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="ndd">
-                        <a class="dropdown-item" href="/contact">Contact</a>
-                        <a class="dropdown-item" href="/cat/all">Show All Cats</a>
-                        <a class="dropdown-item" href="/admin/user/all">Show All User</a>
                     </div>
                 </li>
 

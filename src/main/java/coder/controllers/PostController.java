@@ -30,7 +30,7 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @RequestMapping("/post/all")
+    @RequestMapping("/author/post/all")
     public String allPost(Model model) {
         List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
@@ -47,7 +47,7 @@ public class PostController {
     }
 
 
-    @RequestMapping("/post/edit/{id}")
+    @RequestMapping("/author/post/edit/{id}")
     public String showPostEditPage(@PathVariable("id") String id, Model model) {
         Post post = postService.getPostById(Integer.parseInt(id));
         List<Category> cats = catService.getAllCat();
@@ -56,7 +56,7 @@ public class PostController {
         return "author.post.edit";
     }
 
-    @RequestMapping("/post/edit")
+    @RequestMapping("/author/post/edit")
     public String editPost(@ModelAttribute("post") Post post, Model model, HttpServletRequest request) {
         MultipartFile file = post.getFile();
 
@@ -69,17 +69,17 @@ public class PostController {
 
         postService.updatePost(post);
 
-        return "redirect:/post/all";
+        return "redirect:/author/post/all";
     }
 
-    @RequestMapping("/post/delete/{id}")
+    @RequestMapping("/author/post/delete/{id}")
     public String deletePost(@PathVariable("id") String id, Model model) {
         postService.deletePost(Integer.parseInt(id));
-        return "redirect:/post/all";
+        return "redirect:/author/post/all";
     }
 
 
-    @RequestMapping("/post/create")
+    @RequestMapping("/author/post/create")
     public String showPostCreate(Model model) {
         List<Category> cats = catService.getAllCat();
         model.addAttribute("cats", cats);
@@ -87,9 +87,8 @@ public class PostController {
         return "author.post.create";
     }
 
-    @RequestMapping(value = "/post/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/author/post/create", method = RequestMethod.POST)
     public String createPost(@ModelAttribute("post") Post post, Model model, HttpServletRequest request) {
-
         MultipartFile file = post.getFile();
         // Get Sessoin User and set to Post's User
 
@@ -100,7 +99,7 @@ public class PostController {
         post.setUser_id(1);
         postService.addPost(post);
 
-        return "redirect:/post/all";
+        return "redirect:/author/post/all";
     }
 
     public String saveImage(MultipartFile file, HttpServletRequest request) {
